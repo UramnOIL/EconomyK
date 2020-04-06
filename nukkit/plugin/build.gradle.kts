@@ -12,6 +12,7 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":nukkit:interface"))
     implementation(kotlin("stdlib-jdk8"))
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.5")
     implementation("com.uramnoil:knukkitutils:0.1.6")
     compileOnly("cn.nukkit:nukkit:1.0-SNAPSHOT")
 }

@@ -1,5 +1,6 @@
 package com.uramnoil.economyk.event
 
+import cn.nukkit.event.Cancellable
 import com.uramnoil.economyk.Account
 
-class AccountUpdateEvent(account: Account, val old: UInt) : AccountEvent(account)
+class AccountUpdateEvent @ExperimentalUnsignedTypes constructor(val account: Account, val to: UInt) : AccountEvent()

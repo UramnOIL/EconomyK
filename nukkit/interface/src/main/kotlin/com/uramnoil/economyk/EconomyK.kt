@@ -4,9 +4,9 @@ import cn.nukkit.IPlayer
 import java.util.*
 
 interface EconomyK {
-    fun new(player: IPlayer, amount: UInt = 0u): Account
-    fun get(player: IPlayer): Account
-    fun update(account: Account)
-    fun exists(player: IPlayer): Boolean
-    fun delete(account: Account)
+    suspend fun new(player: IPlayer, amount: UInt = 0u): Account
+    suspend fun get(player: IPlayer): Account
+    suspend fun update(account: Account)
+    suspend fun exists(player: IPlayer): Boolean
+    suspend fun delete(account: Account)
 }
