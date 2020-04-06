@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="EconomyK.interface.main" target="11" />
+      <module name="EconomyK.interface.test" target="11" />
+      <module name="EconomyK.main" target="11" />
+      <module name="EconomyK.nukkit.main" target="11" />
+      <module name="EconomyK.nukkit.test" target="11" />
+      <module name="EconomyK.plugin.main" target="11" />
+      <module name="EconomyK.plugin.test" target="11" />
+      <module name="EconomyK.test" target="11" />
+      <module name="plugins.EconomyK.interface.main" target="11" />
+      <module name="plugins.EconomyK.interface.test" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
