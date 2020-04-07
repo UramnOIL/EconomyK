@@ -1,27 +1,36 @@
 package com.uramnoil.economyk
 
 import cn.nukkit.IPlayer
+import cn.nukkit.Player
 import com.uramnoil.economyk.core.repository.AccountRepository
 import com.uramnoil.economyk.core.repository.AccountRepositoryFactory
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
 class EconomyService : EconomyK {
+    private val job = Job()
+    override val coroutineContext: CoroutineContext
+        get() = job + Dispatchers.Unconfined
     val repository: AccountRepository = AccountRepositoryFactory.repository
 
     internal fun open() = repository.open()
 
-    internal fun close() = repository.close()
-
-    internal fun save() = repository.save()
-
-    override suspend fun new(player: IPlayer, amount: UInt): Account {
-        TODO("Not yet implemented")
+    internal fun close() {
+        job.cancel()
+        repository.close()
     }
 
-    override suspend fun get(player: IPlayer): Account = AccountTranslator.translate(repository.get(player.uniqueId))
+    internal suspend fun create(player: Player, amount: UInt): Account = withContext(Dispatchers.IO) {
+        AccountTranslator(repository.new(player.uniqueId))
+    }
 
-    override suspend fun update(account: Account) = repository.update(AccountTranslator.translate(account))
+    override suspend fun find(player: IPlayer): Account = AccountTranslator(repository.find(player.uniqueId))
+
+    override suspend fun findAll(): List<Account> = repository.findAll().map { AccountTranslator(it) }
+
+    override suspend fun update(account: Account) = repository.update(AccountTranslator(account))
 
     override suspend fun exists(player: IPlayer): Boolean = repository.exists(player.uniqueId)
 
-    override suspend fun delete(account: Account) = repository.delete(AccountTranslator.translate(account))
+    override suspend fun delete(account: Account) = repository.delete(AccountTranslator(account))
 }

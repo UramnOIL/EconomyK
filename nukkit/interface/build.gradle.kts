@@ -13,6 +13,7 @@ dependencies {
     implementation(project(":core"))
     compileOnly(kotlin("stdlib-jdk8"))
     compileOnly("cn.nukkit:nukkit:1.0-SNAPSHOT")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.5")
     implementation("com.uramnoil:knukkitutils:0.1.6")
 }
 val compileKotlin: KotlinCompile by tasks
