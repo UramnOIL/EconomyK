@@ -8,7 +8,7 @@ interface AccountRepository {
     fun close()
 
     @ExperimentalUnsignedTypes
-    fun new(uuid: UUID, amount: UInt = 0u): Account
+    fun create(uuid: UUID, amount: UInt = 0u): Account
     fun find(uuid: UUID): Account
     fun findAll(): List<Account>
     fun update(account: Account)

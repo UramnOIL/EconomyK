@@ -6,25 +6,23 @@ import cn.nukkit.plugin.service.ServicePriority
 import com.uramnoil.economyk.event.AccountCreationEvent
 import com.uramnoil.knukkitutils.plugin.on
 import com.uramnoil.knukkitutils.plugin.service.register
-import kotlinx.coroutines.*
-import kotlin.coroutines.CoroutineContext
 
 class EconomyKPlugin : PluginBase() {
-	private lateinit var service: EconomyService
+	private lateinit var service: EconomyKService
 
+	@ExperimentalUnsignedTypes
 	override fun onEnable() {
 		server.serviceManager.register<EconomyK>(service, this, ServicePriority.NORMAL)
 
-		service = EconomyService()
+		service = EconomyKService()
 		service.open()
 
 		on<PlayerJoinEvent> {
-			service.launch {
-				val a = it.player.getMoneyAsync().await()
-				if (!service.exists(it.player)) {
+			service.transaction {
+				if (service.existsAsync(it.player).await()) {
 					val event = AccountCreationEvent(it.player)
 					server.pluginManager.callEvent(event)
-					service.create(it.player, event.defaultAmount)
+					service.createAsync(it.player, event.defaultAmount)
 				}
 			}
 		}
